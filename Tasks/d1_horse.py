@@ -11,11 +11,12 @@ def calculate_paths(shape: (int, int), point: (int, int)) -> int:
     desk = [[0] * (rows + 4) for _ in range((cols + 4))]
     p = [point[0] + 2, point[1] + 2]
     desk[3][3] = 1
+    clt = 0
     while 1:
         cnt = 0
-        for i in range(2, rows - 2):
-            for j in range(2, cols - 2):
-                if desk[i][j] != 0 and i != p[0] and j != p[1]:
+        for i in range(2, rows + 2):
+            for j in range(2, cols + 2):
+                if desk[i][j] > 0 and [i, j] != p:
                     cnt += 1
                     desk[i - 2][j - 1] += desk[i][j]
                     desk[i - 2][j + 1] += desk[i][j]
@@ -25,12 +26,17 @@ def calculate_paths(shape: (int, int), point: (int, int)) -> int:
                     desk[i - 1][j + 2] += desk[i][j]
                     desk[i + 1][j - 2] += desk[i][j]
                     desk[i + 1][j + 2] += desk[i][j]
+                    desk[i][j] -= desk[i][j] * 8
                     # не закончено
-        if cnt == 0:
+        for j in range(cols + 4):
+            print(desk[j])
+        print()
+        clt += 1
+        if cnt == 0 or clt == 10:
             break
     #for j in range(cols + 4):
     #    print(desk[j])
     return desk[point[0]][point[1]]
-
-
-calculate_paths((4, 4), (3, 3))
+# (8, 8) (7, 7) - 220
+#  (5, 5) (4, 4) - 2
+calculate_paths((5, 5), (4, 4))
