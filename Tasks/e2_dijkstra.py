@@ -3,13 +3,16 @@ import networkx as nx
 
 
 def dijstra_rec(g: nx.DiGraph, size, end, start) -> Union[int, float]:
+    pass
 
 
 def dijkstra(g: nx.DiGraph, end, start) -> Union[int, float]:
     for node in nx.neighbors(g, start):
         if node == end:
             return g[start][node]
-        else return dijstra_rec(g, g[start][node], end, node)
+        else:
+            return dijstra_rec(g, g[start][node], end, node)
+
 
 def dijkstra_algo(g: nx.DiGraph, starting_node: Hashable) -> Mapping[Hashable, Union[int, float]]:
     """
